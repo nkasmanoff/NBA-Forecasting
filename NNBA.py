@@ -6,7 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 from keras.layers import Dense
 from pandas import get_dummies
 
-def make_network(FILENAME,sklearn=False,keras=False,normalize=True,overunder=False,spread=False,moneyline=False):
+def make_network(FILENAME,sklearn=False,keras=False,normalize=True,spread=False,moneyline=False):
     from pandas import read_csv,get_dummies
     import numpy as np
     from sklearn import cross_validation
@@ -35,9 +35,6 @@ def make_network(FILENAME,sklearn=False,keras=False,normalize=True,overunder=Fal
     normalize : bool
         True or false designation for if you want to set all relevant inputs onto the same scale. 
         
-    overunder : bool 
-        True or false designation for if you want to predict the over under. 
-    
     spread : bool
         True or false designation for if you want to predict the spread. 
 
@@ -106,13 +103,6 @@ def make_network(FILENAME,sklearn=False,keras=False,normalize=True,overunder=Fal
     
     y = []
     
-    if overunder:
-        X = X3
-        #[OVER,PUSH,UNDER]
-        y = dat[:,42:45]
-        #save outcomes for all, easy to show over under. 
-
-    
     if spread:
         #include initial spread of the game. 
         X = np.column_stack((X3,x5))
@@ -133,7 +123,8 @@ def make_network(FILENAME,sklearn=False,keras=False,normalize=True,overunder=Fal
 
     
     if moneyline:
-        X = X3
+        X = np.column_stack((X3,x5))
+        #Spread is still a useful property for this type of bet. The spread implies the favorite! 
         for j in range(len(endspreadS)):  
             if endspreadS[j]<0:
                 #means the home team had more points
@@ -178,8 +169,10 @@ def make_network(FILENAME,sklearn=False,keras=False,normalize=True,overunder=Fal
         model.add(Dense(30,activation='relu'))
         model.add(Dense(30,activation='relu'))
         model.add(Dense(22,activation='relu'))
-
-        model.add(Dense(3,activation='softmax'))
+        if spread:
+            model.add(Dense(3,activation='softmax'))
+        if moneyline: 
+            model.add(Dense(2,activation='softmax'))  #different outputs for the 2 problems!
 
         model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
         model.fit(X_train,y_train,batch_size=40,epochs=20,validation_split=.2)

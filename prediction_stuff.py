@@ -46,7 +46,7 @@ def get_splits(TEAMABR,ten=False,twenty=False,regseason=True):
     teamsplits = np.concatenate((df[0],teamarray))
     return teamsplits
 
-def OU_ML_game_maker(roadteam,hometeam,spread,scaler):
+def ML_game_maker(roadteam,hometeam,spread,scaler):
     import numpy as np
 
     """
