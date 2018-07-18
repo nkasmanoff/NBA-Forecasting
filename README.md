@@ -14,6 +14,7 @@ The program inputs the box score of a game, and using that assigns an output cor
 
 Among this there are other ML based methods included, such as a time series analysis of different NBA teams' seasons, and using different approaches in order to forecast that team's success over the next few seasons. 
 
+Note: This software is still at its proof of concept stage. While we do have results for the 2018 NBA finals, we still expect that the large scale and most easily measureable results will begin rolling out with the start of the 2018 NBA season. 
 
 
 NBA Game Classification Modules/Files
@@ -46,8 +47,7 @@ This file cleans the boxscore and spread functions to be used as an input and ou
 Future Modules
 ===============
 
-This is where Aaron's stuff goes... 
-
+Next up will be time series analysis on player and team performances, using these algos to try and forecast how a team/player will perform based on previous data. 
 
 
 
