@@ -1,5 +1,46 @@
 #In here is how we use current NBA statistics to predict the outcome of future games. 
 import pandas as pd
+
+
+def get_todays_games(day,month,year):
+    """Returns all of the games to be predicted by scraping nba.com courtesy of nba_py. 
+    Parameters
+    ----------
+    
+    day : int
+    month : int
+    year : int
+    
+    The integer values of the date. 
+    
+    Returns 
+    -------
+    
+    matchup : arr
+    
+    Array of strings showing the matchup. 
+    """
+    
+    from nba_py import Scoreboard
+
+    ex = Scoreboard(month=month,day=day,year=year)
+    
+    exa = ex.json
+    exb = exa['resultSets'][1]
+    teams = []
+    for i in range(np.shape(exb['rowSet'])[0]):
+        teams.append(exb['rowSet'][i][4])
+      #  away_teams.append(exb['rowSet'][i][4])
+      #  home_teams.append(exb['rowSet'][2*(i+1)][4])
+   # print(away_teams)
+   # print(home_teams)
+    home_teams = teams[1::2]
+    away_teams = teams[0::2]
+    matchups = []
+    for i in range(len(home_teams)):
+        matchups.append([away_teams[i],home_teams[i]])
+    
+    return matchups
 def get_splits(TEAMABR,ten=False,twenty=False,regseason=True):
     """returns the splits of a team over the past N days. Will consider changing this to a from - to thing for different dates. 
     

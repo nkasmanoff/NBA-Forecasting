@@ -44,12 +44,18 @@ This file cleans the boxscore and spread functions to be used as an input and ou
 
 
 
+NBA Season Regression
+=====================
+
+
+We used support vector regression with radial basis functions to predict the win/loss ratio of teams using data from previous seasons. There is a loose analogy to stocks here as the win/loss ratios are subject to some random fluctuation, and may rise after hitting a low due to the team getting an early pick in the draft.
+For future research, we plan to improve the accuracy of the regression by testing different methods and eventually predict the outcome of the season by choosing the team with the highest predicted win/loss ratio. As a proof of concept, we show the regression done on the previous Bulls seasons. Using our model, we forecast their season to be fairly successful, with a projected win/loss ratio of 0.513. Let's hope Jabari Parker takes the next step! 
+
+
 Future Modules
 ===============
 
 Next up will be time series analysis on player and team performances, using these algos to try and forecast how a team/player will perform based on previous data. 
-
-
 
 
 
