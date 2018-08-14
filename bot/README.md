@@ -1,0 +1,1 @@
+As an added feature to this project, I've decided to include a twitter bot who will tweet daily game predictions for every upcoming game, and hopefully identify whether or not the spread has changed. 

@@ -1,6 +1,6 @@
 #In here is how we use current NBA statistics to predict the outcome of future games. 
 import pandas as pd
-
+import numpy as np
 
 def get_todays_games(day,month,year):
     """Returns all of the games to be predicted by scraping nba.com courtesy of nba_py. 
@@ -29,11 +29,15 @@ def get_todays_games(day,month,year):
     exb = exa['resultSets'][1]
     teams = []
     for i in range(np.shape(exb['rowSet'])[0]):
+
         teams.append(exb['rowSet'][i][4])
       #  away_teams.append(exb['rowSet'][i][4])
       #  home_teams.append(exb['rowSet'][2*(i+1)][4])
    # print(away_teams)
    # print(home_teams)
+    for team in teams:
+        if team == 'BRK':
+            team = 'BKN'
     home_teams = teams[1::2]
     away_teams = teams[0::2]
     matchups = []

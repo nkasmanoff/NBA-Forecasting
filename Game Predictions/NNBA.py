@@ -6,7 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 from keras.layers import Dense
 from pandas import get_dummies
 
-def make_network(FILENAME,sklearn=False,keras=False,normalize=True,spread=False,moneyline=False):
+def make_network(FILENAME,sklearn=False,keras=False,normalize=True,spread=False,moneyline=False,tpot = False):
     from pandas import read_csv,get_dummies
     import numpy as np
     from sklearn import cross_validation
@@ -179,6 +179,18 @@ def make_network(FILENAME,sklearn=False,keras=False,normalize=True,spread=False,
         scores = model.evaluate(X_test,y_test)
         print(scores[1])
 
+    if tpot: 
+        y2 = []
+        for i in range(len(y_train)):
+                if sum(y_train[i] == np.array([1, 0, 0])) == 3:
+                    y2.append(0)
+                else:
+                    y2.append(1)
+        
+        from tpot import TPOTClassifier
+        tpot = TPOTClassifier(generations = 5,population_size = 50,verbosity = 2, n_jobs = -1)
+        tpot.fit(X_train,y2)
+            #experimental. Trying to use genetic programming to identify optimal routine for game classification. 
     
-    
+        model = tpot #the returned model 
     return model,scaler
