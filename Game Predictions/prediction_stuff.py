@@ -1,6 +1,7 @@
 #In here is how we use current NBA statistics to predict the outcome of future games. 
 import pandas as pd
 import numpy as np
+from datetime import datetime
 
 def get_todays_games(day,month,year):
     """Returns all of the games to be predicted by scraping nba.com courtesy of nba_py. 
@@ -35,9 +36,15 @@ def get_todays_games(day,month,year):
       #  home_teams.append(exb['rowSet'][2*(i+1)][4])
    # print(away_teams)
    # print(home_teams)
+    print("Old Teams:",teams)
+    new_teams = []
     for team in teams:
-        if team == 'BRK':
-            team = 'BKN'
+        if team == 'BKN':
+            new_teams.append('BRK')
+        else:
+            new_teams.append(team)
+    print("Fixed(?) Teams: " , new_teams)
+    teams = new_teams
     home_teams = teams[1::2]
     away_teams = teams[0::2]
     matchups = []
@@ -159,5 +166,28 @@ def spread_game_maker(roadteam,hometeam,spread,scaler):
     game = [game]
     game = scaler.transform(game)
     return game
+
+
+
+def predict_todays_games():
+    now = datetime.now()
+    matchups = prediction_stuff.get_todays_games(now.day,now.month,now.year)
+    teamsplits = []
+    for game in matchups:
+        for team in game:
+            teamsplit = prediction_stuff.get_splits(team)  #this is one of the arrays, now pair it up like was done
+            teamsplits.append(teamsplit)
+    
+    home_teams = teamsplits[1::2]
+    away_teams = teamsplits[0::2]
+
+
+#Spread will be extracted for that game...
+    todays_matchups = []
+    for i in range(len(home_teams)):
+        todays_matchups.append(prediction_stuff.spread_game_maker(away_teams[i],home_teams[i],7,scaler))
+
+    for game in todays_matchups:
+        print(model.predict(game))
 
     
