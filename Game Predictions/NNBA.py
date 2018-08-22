@@ -165,10 +165,10 @@ def make_network(FILENAME,sklearn=False,keras=False,normalize=True,spread=False,
     if keras:
         print("keras NN goes here")
         model=Sequential()
-        model.add(Dense(22,input_dim=np.shape(X)[1],activation='relu'))
-        model.add(Dense(30,activation='relu'))
-        model.add(Dense(30,activation='relu'))
-        model.add(Dense(22,activation='relu'))
+        model.add(Dense(80,input_dim=np.shape(X)[1],activation='relu'))
+        model.add(Dense(81,activation='relu'))
+        model.add(Dense(31,activation='relu'))
+        model.add(Dense(24,activation='relu'))
         if spread:
             model.add(Dense(3,activation='softmax'))
         if moneyline: 

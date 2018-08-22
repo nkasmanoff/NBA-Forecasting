@@ -36,14 +36,14 @@ def get_todays_games(day,month,year):
       #  home_teams.append(exb['rowSet'][2*(i+1)][4])
    # print(away_teams)
    # print(home_teams)
-    print("Old Teams:",teams)
+   # print("Old Teams:",teams)
     new_teams = []
     for team in teams:
         if team == 'BKN':
             new_teams.append('BRK')
         else:
             new_teams.append(team)
-    print("Fixed(?) Teams: " , new_teams)
+   # print("Fixed(?) Teams: " , new_teams)
     teams = new_teams
     home_teams = teams[1::2]
     away_teams = teams[0::2]
