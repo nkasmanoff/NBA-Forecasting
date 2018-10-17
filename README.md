@@ -61,3 +61,17 @@ Next up will be time series analysis on player and team performances, using thes
 
 
 and more!# NBA-Forecasting
+
+
+
+Update 8-29
+------------
+
+
+Some things I think can be changed. 
+
+Right now I'm lookning at a 49% test score on spread, 53% on ML. Both vanilla models score higher, so this suggests that there is some overfitting involved. I can take measures to account for this, and there are other things I can look at too like window size, season rollover, etc. Hopefully I can get scores over 50%!
+
+
+
+Was able to achieve sucess on Spread prediction using a rolling average process. Further steps include looking more into different classifiers, more preprocessing, diffferent window sizes, inclusion/exclusion of playoff games, rasing the decision boundary, and so on. 
